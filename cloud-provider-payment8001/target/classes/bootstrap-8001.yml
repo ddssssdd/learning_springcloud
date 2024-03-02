@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: cloud-payment-service
+  cloud:
+    consul:
+      discovery:
+        service-name: ${spring.application.name}
+        prefer-ip-address: true
+        instance-id: payment-8001
+      host: localhost
+      port: 8500
+      config:
+        profile-separator: '-'
+        format: yaml

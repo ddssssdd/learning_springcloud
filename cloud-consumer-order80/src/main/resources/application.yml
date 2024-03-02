@@ -1,0 +1,38 @@
+server:
+  port: 80
+spring:
+  application:
+    name: cloud-consumer-order
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 2000
+            read-timeout: 2000
+            logger-level: full
+          cloud-payment-service:
+            connect-timeout: 3000
+            read-timeout: 3000
+      compression:
+        request:
+          enabled: true
+          mime-types: text/xml;application/json
+          min-request-size: 2048
+        response:
+          enabled: true
+      httpclient:
+        hc5:
+          enabled: true
+logging:
+  level:
+    com:
+      sfuhome:
+        api:
+          PayFeignApi: debug
+
