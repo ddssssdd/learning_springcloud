@@ -16,4 +16,7 @@ public interface PayFeignApi {
     @GetMapping("/pay/find/{id}")
     PayDTO find(@PathVariable("id") Integer id);
 
+    @GetMapping("/pay/circuit/{id}")
+    String myCircuit(@PathVariable("id") Integer id);
+
 }

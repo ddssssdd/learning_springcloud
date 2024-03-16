@@ -13,12 +13,12 @@ spring:
       client:
         config:
           default:
-            connect-timeout: 2000
-            read-timeout: 2000
+            connect-timeout: 20000
+            read-timeout: 20000
             logger-level: full
           cloud-payment-service:
-            connect-timeout: 3000
-            read-timeout: 3000
+            connect-timeout: 30000
+            read-timeout: 30000
       compression:
         request:
           enabled: true
@@ -29,10 +29,29 @@ spring:
       httpclient:
         hc5:
           enabled: true
+      circuitbreaker:
+        enabled: true
+        group:
+          enabled: true
 logging:
   level:
     com:
       sfuhome:
         api:
           PayFeignApi: debug
-
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        failureRateThreshold: 50
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 6
+        minimumNumberOfCalls: 6
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 2
+        recordExceptions:
+         - java.lang.Exception
+    instances:
+      cloud-payment-services:
+        baseConfig: default

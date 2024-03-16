@@ -43,7 +43,7 @@ public class PayController {
     @GetMapping("/pay/find/{id}")
     public Pay find(@PathVariable("id") Integer id){
         try {
-            Thread.sleep(10000);
+            Thread.sleep(1000);
         }catch (Exception e){
             log.info(e.getLocalizedMessage());
         }
